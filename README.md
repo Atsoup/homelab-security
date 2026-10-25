@@ -34,6 +34,7 @@ I deployed a honeypot/honeynet on Google Cloud Platform to observe real attacker
 - **Result:** **3,000+ attack attempts within the first hour.**
 - **What they were:** mostly **SSH brute-force** and **credential-stuffing** attempts, automated tooling cycling through common usernames and leaked passwords.
 - **Takeaway:** an internet-facing host with SSH open is attacked continuously, at a rate no human could follow. It is the reason the lab above exposes no SSH or admin ports at all, uses passkeys instead of passwords, and alerts on bursts of failed sign-ins (rule 100702).
+- **Caveat:** the VM was a short experiment (about an hour) and its logs were not kept, so this is a summary of what I observed rather than a dataset. A re-run with full capture is on the list.
 
 ## License
 MIT. Use the rules as a starting point for your own Authentik monitoring.
