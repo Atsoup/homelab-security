@@ -6,7 +6,7 @@ contains hostnames, IP addresses, credentials or personal data from the lab.
 ## Lab at a glance
 - **Zero Trust access:** self-hosted services are published through Cloudflare Tunnel and Cloudflare Access with Authentik passkey SSO, with no inbound port forwarding for the web apps. The origin re-validates the Access JWT (signature, issuer, audience, identity, lifetime) before serving anything.
 - **SIEM:** a Wazuh manager on an isolated network segment, with agents on Windows and Linux hosts. The host firewall only allows agent traffic toward the manager.
-- **Hardening:** DNSSEC, DMARC (reject), SPF, CAA and HSTS on the public domains. Every change ships with pre-checks, a backup and a scripted rollback.
+- **Hardening:** DNSSEC, DMARC (reject, or quarantine on the way to reject), SPF, CAA and HSTS on the public domains. Every change ships with pre-checks, a backup and a scripted rollback.
 
 ## Contents
 
@@ -30,11 +30,6 @@ The rules assume Authentik's container logs are collected with `<log_format>json
 
 ### Honeypot: Google Cloud
 I deployed a honeypot/honeynet on Google Cloud Platform to observe real attacker behaviour against an internet-facing host.
-
-- **Result:** **3,000+ attack attempts within the first hour.**
-- **What they were:** mostly **SSH brute-force** and **credential-stuffing** attempts, automated tooling cycling through common usernames and leaked passwords.
-- **Takeaway:** an internet-facing host with SSH open is attacked continuously, at a rate no human could follow. It is the reason the lab above exposes no SSH or admin ports at all, uses passkeys instead of passwords, and alerts on bursts of failed sign-ins (rule 100702).
-- **Caveat:** the VM was a short experiment (about an hour) and its logs were not kept, so this is a summary of what I observed rather than a dataset. A re-run with full capture is on the list.
 
 ## License
 MIT. Use the rules as a starting point for your own Authentik monitoring.
